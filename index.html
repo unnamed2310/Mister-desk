@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#202938">
+<title>Mister Desk — доска задач</title>
+<style>
+:root{--navy:#202938;--navy2:#293546;--blue:#4361ee;--bg:#f4f6fa;--ink:#202938;--muted:#788397;--line:#e6eaf0;--white:#fff;--green:#168a67;--amber:#d28b13;--red:#d54b57;--shadow:0 14px 40px rgba(22,34,52,.12)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.side{background:var(--navy);color:#e9edf4;padding:25px 16px;display:flex;flex-direction:column;gap:30px}.brand{display:flex;align-items:center;gap:11px;padding:0 9px;font-size:19px;font-weight:750;letter-spacing:-.3px}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:#7187ff;color:white;font-size:19px}.workspace{padding:0 10px}.side-label{font-size:11px;color:#98a4b6;letter-spacing:1.2px;text-transform:uppercase;padding:0 10px;margin-bottom:8px}.nav{display:flex;gap:11px;align-items:center;color:#c7cfda;padding:11px 12px;border-radius:9px;margin:3px 0}.nav.active{background:#354257;color:white}.nav .ico{width:20px;text-align:center;font-size:17px}.team{margin-top:auto;border-top:1px solid #3b4657;padding:17px 9px 0;display:flex;align-items:center;gap:10px;color:#c9d0da;font-size:13px}.avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#e5d4ff;color:#6145a0;font-weight:700}
+main{min-width:0}.top{height:69px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px}.crumb{font-size:13px;color:var(--muted)}.top-right{display:flex;align-items:center;gap:15px}.search{width:240px;border:1px solid var(--line);background:#f8f9fb;border-radius:9px;padding:9px 12px;outline:0}.search:focus{border-color:#aab7ff}.profile{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650}.profile .avatar{width:30px;height:30px}
+.content{padding:28px 30px 36px;max-width:1600px;margin:auto}.heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:24px}.eyebrow{color:var(--blue);font-weight:700;font-size:12px;letter-spacing:.5px}.heading h1{margin:5px 0 4px;font-size:27px;letter-spacing:-.7px}.sub{margin:0;color:var(--muted);font-size:14px}.primary{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:11px 16px;font-weight:650;box-shadow:0 5px 14px #4361ee30}.primary:hover{background:#3452df}.toolbar{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px;gap:12px}.board-title{font-weight:700;font-size:15px}.filters{display:flex;align-items:center;gap:8px}.filters select{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:white;color:#596579;max-width:180px}
+.board{display:grid;grid-template-columns:repeat(3,minmax(245px,1fr));gap:16px;align-items:start}.lane{background:#edf0f5;border-radius:12px;padding:12px;min-height:270px}.lane-head{display:flex;align-items:center;justify-content:space-between;padding:3px 3px 12px}.lane-name{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}.dot{width:9px;height:9px;border-radius:50%;background:#8894a6}.lane[data-status="progress"] .dot{background:#e4a328}.lane[data-status="done"] .dot{background:#39a883}.count{color:#8893a3;font-size:12px;background:#e2e6ed;border-radius:20px;padding:2px 8px}.cards{display:flex;flex-direction:column;gap:9px;min-height:180px}.card{background:white;border:1px solid #e9edf2;border-radius:10px;padding:13px;box-shadow:0 2px 5px #1b2b4210;cursor:grab}.card:hover{box-shadow:0 5px 15px #1b2b4218;transform:translateY(-1px)}.card.dragging{opacity:.45}.card-title{font-size:14px;font-weight:650;line-height:1.4;margin:0 0 7px}.card-desc{font-size:12px;color:var(--muted);margin:0 0 11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:5px;background:#f0f2f6;color:#687487}.tag.high{background:#fff0ef;color:#cb454a}.tag.medium{background:#fff5dc;color:#ae7515}.tag.low{background:#e7f6ef;color:#208260}.card-foot{border-top:1px solid #eff1f4;padding-top:9px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8390a0}.assignee{display:flex;align-items:center;gap:6px}.mini-avatar{width:22px;height:22px;border-radius:50%;background:#e9eaff;color:#4f5fbd;display:grid;place-items:center;font-size:10px;font-weight:750}.date.late{color:var(--red);font-weight:700}.card-actions{display:flex;gap:5px}.icon-btn{border:0;background:transparent;color:#8a95a5;padding:4px 6px;border-radius:5px}.icon-btn:hover{background:#eef1f6;color:#364155}.add-lane{width:100%;border:1px dashed #c9d0dc;border-radius:8px;background:transparent;color:#778397;padding:9px;margin-top:9px;font-size:12px}.add-lane:hover{background:white;color:var(--blue)}.empty{font-size:12px;color:#97a1b0;text-align:center;padding:25px 8px}
+.overlay{position:fixed;inset:0;background:#11182788;display:none;align-items:center;justify-content:center;padding:18px;z-index:4}.overlay.open{display:flex}.modal{width:min(530px,100%);background:white;border-radius:15px;box-shadow:var(--shadow);padding:22px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal h2{font-size:19px;margin:0}.close{border:0;background:transparent;color:#778397;font-size:24px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:650;color:#536074}.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:8px;padding:10px;outline:0;background:#fff}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#9aaaff}.modal-actions{display:flex;justify-content:space-between;margin-top:19px}.secondary{border:1px solid var(--line);background:white;border-radius:8px;padding:9px 13px;color:#566174}.danger{border:0;background:transparent;color:var(--red);padding:9px}.hint{font-size:11px;color:#929cad;margin-top:12px}
+@media(max-width:900px){.app{grid-template-columns:70px 1fr}.side{padding:21px 10px;align-items:center}.brand{padding:0}.brand-name,.workspace,.team{display:none}.nav{justify-content:center;padding:11px 13px}.nav span:not(.ico){display:none}.content{padding:23px 20px}.top{padding:0 20px}.board{grid-template-columns:repeat(3,minmax(230px,1fr));overflow-x:auto}.search{width:190px}}
+@media(max-width:620px){.app{display:block}.side{display:none}.top{height:58px;padding:0 15px}.crumb{font-size:12px}.profile span:last-child{display:none}.search{width:min(46vw,190px);font-size:13px;padding:8px}.content{padding:20px 14px}.heading{align-items:center;margin-bottom:18px}.heading h1{font-size:23px}.sub{font-size:12px}.primary{padding:10px 12px;font-size:13px;white-space:nowrap}.toolbar{align-items:flex-start;flex-direction:column}.filters{width:100%}.filters select{flex:1;max-width:none}.board{display:flex;overflow-x:auto;gap:11px;margin-right:-14px;padding-right:14px;scroll-snap-type:x mandatory}.lane{flex:0 0 86vw;scroll-snap-align:start}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal{padding:18px}.overlay{align-items:flex-end;padding:0}.modal{border-radius:16px 16px 0 0;max-height:92vh;overflow:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><span class="brand-mark">M</span><span class="brand-name">Mister Desk</span></div>
+  <div class="workspace"><div class="side-label">Рабочее пространство</div><div class="nav active"><span class="ico">▦</span><span>Моя доска</span></div><div class="nav"><span class="ico">✓</span><span>Мои задачи</span></div><div class="nav"><span class="ico">◷</span><span>Недавние</span></div></div>
+  <div class="team"><span class="avatar">М</span><span>Команда Мистер-Мебель</span></div>
+</aside>
+<main>
+  <header class="top"><div class="crumb">Команда <span aria-hidden="true">›</span> Доски <span aria-hidden="true">›</span> Общая доска</div><div class="top-right"><input id="search" class="search" placeholder="⌕  Поиск задач" aria-label="Поиск задач"><div class="profile"><span class="avatar">А</span><span>Андрей</span></div></div></header>
+  <section class="content">
+    <div class="heading"><div><div class="eyebrow">КОМАНДНАЯ ДОСКА</div><h1>Рабочие задачи</h1><p class="sub">Планируйте работу и следите за ходом выполнения</p></div><button class="primary" id="newTask">＋ Новая задача</button></div>
+    <div class="toolbar"><div class="board-title">Общая доска <span id="total" style="color:#8a95a5;font-weight:500"></span></div><div class="filters"><select id="assigneeFilter" aria-label="Фильтр по исполнителю"><option value="">Все исполнители</option></select><select id="sort" aria-label="Сортировка"><option value="created">Сначала новые</option><option value="due">Сначала ближайший срок</option><option value="priority">Сначала важные</option></select></div></div>
+    <div class="board" id="board"></div>
+  </section>
+</main>
+</div>
+<div class="overlay" id="overlay">
+<form class="modal" id="taskForm">
+  <div class="modal-head"><h2 id="modalTitle">Новая задача</h2><button type="button" class="close" id="closeModal" aria-label="Закрыть">×</button></div>
+  <input type="hidden" id="taskId">
+  <div class="form-grid">
+    <div class="field full"><label for="title">Название задачи</label><input id="title" required maxlength="120" placeholder="Например, подготовить предложение клиенту"></div>
+    <div class="field full"><label for="description">Описание</label><textarea id="description" maxlength="500" placeholder="Что нужно сделать?"></textarea></div>
+    <div class="field"><label for="assignee">Исполнитель</label><input id="assignee" maxlength="50" placeholder="Имя сотрудника"></div>
+    <div class="field"><label for="due">Срок</label><input id="due" type="date"></div>
+    <div class="field"><label for="priority">Приоритет</label><select id="priority"><option value="medium">Обычный</option><option value="high">Высокий</option><option value="low">Низкий</option></select></div>
+    <div class="field"><label for="status">Колонка</label><select id="status"><option value="todo">К выполнению</option><option value="progress">В работе</option><option value="done">Готово</option></select></div>
+  </div>
+  <div class="modal-actions"><button type="button" class="danger" id="deleteTask" style="display:none">Удалить задачу</button><button type="submit" class="primary">Сохранить</button></div>
+  <div class="hint">Задачи сохраняются в этом браузере на вашем устройстве.</div>
+</form>
+</div>
+<script>
+(function(){
+  const key="misterDesk.tasks.v1";
+  const statuses=[{id:"todo",name:"К выполнению"},{id:"progress",name:"В работе"},{id:"done",name:"Готово"}];
+  const priorityNames={high:"Высокий",medium:"Обычный",low:"Низкий"};
+  const rank={high:0,medium:1,low:2};
+  const sample=[
+    {id:"a1",title:"Подготовить предложение по шкафу",description:"Собрать варианты фасадов и согласовать стоимость с клиентом.",assignee:"Андрей",due:"",priority:"high",status:"todo",created:Date.now()-40000},
+    {id:"a2",title:"Проверить наличие образцов тканей",description:"Уточнить у поставщика сроки доставки новых образцов.",assignee:"Ирина",due:"",priority:"medium",status:"todo",created:Date.now()-30000},
+    {id:"a3",title:"Согласовать размеры кухни",description:"Созвониться с клиентом и подтвердить замеры помещения.",assignee:"Андрей",due:"",priority:"high",status:"progress",created:Date.now()-20000},
+    {id:"a4",title:"Обновить карточки готовых проектов",description:"Добавить фотографии и краткое описание выполненных работ.",assignee:"Ирина",due:"",priority:"low",status:"done",created:Date.now()-10000}
+  ];
+  let tasks;
+  try{tasks=JSON.parse(localStorage.getItem(key));if(!Array.isArray(tasks))tasks=sample}catch(e){tasks=sample}
+  const $=function(id){return document.getElementById(id)};
+  const esc=function(s){return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+  const initials=function(s){return (s||"?").trim().split(/\s+/).map(function(x){return x[0]||""}).slice(0,2).join("").toUpperCase()};
+  const save=function(){localStorage.setItem(key,JSON.stringify(tasks))};
+  const fmt=function(v){if(!v)return "";const p=v.split("-");return p[2]+"."+p[1]};
+  const render=function(){
+    const q=$("search").value.trim().toLowerCase(), who=$("assigneeFilter").value, sort=$("sort").value;
+    const people=Array.from(new Set(tasks.map(function(t){return t.assignee}).filter(Boolean))).sort();
+    $("assigneeFilter").innerHTML='<option value="">Все исполнители</option>'+people.map(function(p){return '<option value="'+esc(p)+'">'+esc(p)+'</option>'}).join("");
+    $("assigneeFilter").value=who;
+    const shown=tasks.filter(function(t){return (!who||t.assignee===who)&&(!q||(t.title+" "+t.description+" "+t.assignee).toLowerCase().includes(q))});
+    $("total").textContent="· "+shown.length+" задач";
+    $("board").innerHTML=statuses.map(function(s){
+      let arr=shown.filter(function(t){return t.status===s.id});
+      if(sort==="due")arr.sort(function(a,b){return (a.due||"9999").localeCompare(b.due||"9999")});
+      else if(sort==="priority")arr.sort(function(a,b){return rank[a.priority]-rank[b.priority]});
+      else arr.sort(function(a,b){return b.created-a.created});
+      return '<section class="lane" data-status="'+s.id+'"><div class="lane-head"><div class="lane-name"><i class="dot"></i>'+s.name+'</div><span class="count">'+arr.length+'</span></div><div class="cards" data-drop="'+s.id+'">'+(arr.length?arr.map(card).join(""):'<div class="empty">Пока задач нет</div>')+'</div><button class="add-lane" data-add="'+s.id+'">＋ Добавить задачу</button></section>'
+    }).join("");
+    document.querySelectorAll(".card").forEach(function(el){el.addEventListener("click",function(e){if(e.target.closest("button"))return;openEdit(el.dataset.id)});el.addEventListener("dragstart",function(e){el.classList.add("dragging");e.dataTransfer.setData("text/plain",el.dataset.id)});el.addEventListener("dragend",function(){el.classList.remove("dragging")})});
+    document.querySelectorAll(".cards").forEach(function(el){el.addEventListener("dragover",function(e){e.preventDefault()});el.addEventListener("drop",function(e){e.preventDefault();const id=e.dataTransfer.getData("text/plain"),task=tasks.find(function(t){return t.id===id});if(task){task.status=el.dataset.drop;save();render()}})});
+    document.querySelectorAll("[data-add]").forEach(function(b){b.onclick=function(){openNew(b.dataset.add)}});
+  };
+  function card(t){
+    const isLate=t.due&&t.due<new Date().toISOString().slice(0,10)&&t.status!=="done";
+    return '<article class="card" draggable="true" data-id="'+esc(t.id)+'"><h3 class="card-title">'+esc(t.title)+'</h3>'+(t.description?'<p class="card-desc">'+esc(t.description)+'</p>':'')+'<div class="tags"><span class="tag '+esc(t.priority)+'">'+priorityNames[t.priority]+'</span>'+(isLate?'<span class="tag high">Просрочено</span>':'')+'</div><div class="card-foot"><span class="assignee">'+(t.assignee?'<span class="mini-avatar">'+esc(initials(t.assignee))+'</span>'+esc(t.assignee):'<span>Без исполнителя</span>')+'</span><span class="date '+(isLate?'late':'')+'">'+(t.due?fmt(t.due):"")+'</span><span class="card-actions"><button class="icon-btn" title="Изменить статус" data-next="'+esc(t.id)+'">↪</button></span></div></article>'
+  }
+  function openNew(status){$("taskForm").reset();$("taskId").value="";$("status").value=status||"todo";$("modalTitle").textContent="Новая задача";$("deleteTask").style.display="none";$("overlay").classList.add("open");$("title").focus()}
+  function openEdit(id){const t=tasks.find(function(x){return x.id===id});if(!t)return;$("taskId").value=t.id;$("title").value=t.title;$("description").value=t.description||"";$("assignee").value=t.assignee||"";$("due").value=t.due||"";$("priority").value=t.priority;$("status").value=t.status;$("modalTitle").textContent="Изменить задачу";$("deleteTask").style.display="inline-block";$("overlay").classList.add("open")}
+  function close(){ $("overlay").classList.remove("open") }
+  $("newTask").onclick=function(){openNew()};
+  $("closeModal").onclick=close;
+  $("overlay").addEventListener("click",function(e){if(e.target===$("overlay"))close()});
+  $("taskForm").addEventListener("submit",function(e){e.preventDefault();const id=$("taskId").value;const t={id:id||("t"+Date.now()),title:$("title").value.trim(),description:$("description").value.trim(),assignee:$("assignee").value.trim(),due:$("due").value,priority:$("priority").value,status:$("status").value,created:id?(tasks.find(function(x){return x.id===id})||{}).created||Date.now():Date.now()};if(id){tasks=tasks.map(function(x){return x.id===id?t:x})}else tasks.push(t);save();close();render()});
+  $("deleteTask").onclick=function(){const id=$("taskId").value;if(confirm("Удалить эту задачу?")){tasks=tasks.filter(function(t){return t.id!==id});save();close();render()}};
+  $("search").addEventListener("input",render);$("assigneeFilter").addEventListener("change",render);$("sort").addEventListener("change",render);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+  document.addEventListener("click",function(e){const b=e.target.closest("[data-next]");if(!b)return;const t=tasks.find(function(x){return x.id===b.dataset.next});if(!t)return;const i=statuses.findIndex(function(s){return s.id===t.status});t.status=statuses[(i+1)%statuses.length].id;save();render()});
+  save();render();
+})();
+</script>
+</body>
+</html>
